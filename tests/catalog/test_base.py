@@ -55,20 +55,10 @@ from pyiceberg.table.metadata import TableMetadata, TableMetadataV1, new_table_m
 from pyiceberg.table.sorting import UNSORTED_SORT_ORDER, SortOrder
 from pyiceberg.transforms import IdentityTransform
 from pyiceberg.typedef import EMPTY_DICT
-from pyiceberg.types import IntegerType, LongType, NestedField
 from pyiceberg.types import (
-    BinaryType,
-    BooleanType,
-    DateType,
-    DoubleType,
-    FloatType,
     IntegerType,
-    ListType,
     LongType,
-    MapType,
     NestedField,
-    StringType,
-    StructType,
 )
 
 
@@ -345,6 +335,7 @@ def test_create_table(catalog: InMemoryCatalog) -> None:
     )
     assert catalog.load_table(TEST_TABLE_IDENTIFIER) == table
 
+
 def test_create_table_with_scrambled_schema(catalog: InMemoryCatalog, table_schema_nested: Schema) -> None:
     table = catalog.create_table(
         identifier=TEST_TABLE_IDENTIFIER,
@@ -354,6 +345,7 @@ def test_create_table_with_scrambled_schema(catalog: InMemoryCatalog, table_sche
         properties=TEST_TABLE_PROPERTIES,
     )
     assert table_schema_nested == table.schema()
+
 
 def test_create_table_raises_error_when_table_already_exists(catalog: InMemoryCatalog) -> None:
     # Given

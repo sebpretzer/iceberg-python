@@ -32,20 +32,6 @@ from pyiceberg.exceptions import (
 )
 from pyiceberg.schema import Schema
 from tests.conftest import BUCKET_NAME, TABLE_METADATA_LOCATION_REGEX
-from pyiceberg.types import (
-    BinaryType,
-    BooleanType,
-    DateType,
-    DoubleType,
-    FloatType,
-    IntegerType,
-    ListType,
-    LongType,
-    MapType,
-    NestedField,
-    StringType,
-    StructType,
-)
 
 
 @mock_glue
@@ -126,14 +112,18 @@ def test_create_table_with_strips_bucket_root(
     assert table_strip.identifier == (catalog_name,) + identifier
     assert TABLE_METADATA_LOCATION_REGEX.match(table_strip.metadata_location)
 
+
 @mock_glue
-def test_create_table_with_scrambled_schema(_bucket_initialize: None, moto_endpoint_url: str, database_name: str, table_name: str, table_schema_nested: Schema) -> None:
+def test_create_table_with_scrambled_schema(
+    _bucket_initialize: None, moto_endpoint_url: str, database_name: str, table_name: str, table_schema_nested: Schema
+) -> None:
     catalog_name = "glue"
     identifier = (database_name, table_name)
     test_catalog = GlueCatalog(catalog_name, **{"s3.endpoint": moto_endpoint_url, "warehouse": f"s3://{BUCKET_NAME}"})
     test_catalog.create_namespace(namespace=database_name)
     table = test_catalog.create_table(identifier, table_schema_nested)
-    assert table_schema_nested == table.schema() # FAILS HERE
+    assert table_schema_nested == table.schema()  # FAILS HERE
+
 
 @mock_glue
 def test_create_table_with_no_database(
