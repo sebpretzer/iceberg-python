@@ -55,11 +55,7 @@ from pyiceberg.table.metadata import TableMetadata, TableMetadataV1, new_table_m
 from pyiceberg.table.sorting import UNSORTED_SORT_ORDER, SortOrder
 from pyiceberg.transforms import IdentityTransform
 from pyiceberg.typedef import EMPTY_DICT
-from pyiceberg.types import (
-    IntegerType,
-    LongType,
-    NestedField,
-)
+from pyiceberg.types import IntegerType, LongType, NestedField
 
 
 class InMemoryCatalog(Catalog):
